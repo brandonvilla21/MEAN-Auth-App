@@ -21,12 +21,20 @@ mongoose.connection.on('error', err => {
 
 const app = express();
 
-// Middleware
+// Cors middleware
 app.use(cors());
-app.use(bodyParser.json());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+//  Body parser middleware
+app.use(bodyParser.json());
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./config/passport')(passport);
 
 // Use user routes
 app.use('/users', users);
