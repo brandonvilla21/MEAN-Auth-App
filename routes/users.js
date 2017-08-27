@@ -40,7 +40,7 @@ router.post('/authenticate', (req, res, next) => {
 
                 res.json({
                     success: true,
-                    token: 'JWT'+token,
+                    token: `JWT ${token}`,
                     user: {
                         id: user._id,
                         name: user.name,
@@ -59,8 +59,8 @@ router.post('/authenticate', (req, res, next) => {
 // Profile
 // Second parameter is for authentication
 router.get('/profile', passport.authenticate('jwt', { session: false }) ,(req, res, next) => {
-    res.send('Profile');
 
+    res.json({ user: req.user });
 });
 
 
